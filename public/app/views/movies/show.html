@@ -1,0 +1,66 @@
+<div ng-controller="ShowMovieController">
+
+<div class="page-header">
+  <h1>{{movie.name}} ({{movie.year}})</h1>
+</div>
+<div class="btn-toolbar"></div>
+    
+<!--Elokuvan tiedot, jotka voi myös piilottaa-->
+<div><p>Näytä tiedot <input type="checkbox" ng-model="showInfo" ng-init="showInfo=true"></p></div>
+<div ng-if="showInfo">
+    <div ng-if="movie.description">
+        <h3>Plot</h3>
+        <p>{{movie.description}}</p>
+    </div>   
+    <div ng-if="movie.director">
+        <h3>Director</h3>
+        <p>{{movie.director}}</p>
+    </div>
+    <div ng-if="movie.writer">
+        <h3>Writer</h3>
+        <p>{{movie.writer}}</p>
+    </div>
+    <div ng-if="movie.actors">
+        <h3>Actors</h3>
+        <p>{{movie.actors}}</p>
+    </div>
+    <button class="btn-danger" ng-click="deleteMovie()">Poista</button>
+    <button class="btn-warning" ng-click="editMovie()">Muokkaa</button>
+</div>
+<div class="col-xs-12" style="height:50px;"></div>
+
+<!--Viestit elokuvaan liittyen-->
+<div><p>Näytä viestit <input type="checkbox" ng-model="showMessages" ng-init="showMessages=true"></p></div>
+<div ng-if="showMessages">
+    <h3>Viestit</h3>
+    <!--Listataan Viestit -->
+    <ul><li ng-repeat="message in movie.Messages">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{message.title}} ({{message.createdAt | date:"dd.MM.yyyy ', ' hh:mm"}})</h3>
+            </div>
+            <div class="panel-body">
+                {{message.content}}
+            </div>
+        </div>
+    </li></ul>
+    
+    <!--Viestin Lisäys-->
+    <form>
+        <div class="form-group">
+          <label>Otsikko</label>
+          <input type="text" class="form-control" ng-model="newMessage.title">
+        </div>
+
+        <div class="form-group">
+          <label>Teksti</label>
+          <input type="text" class="form-control" ng-model="newMessage.content">
+        </div>
+
+
+        <button class="btn btn-success" ng-click="addMessage()">Lisää</button>
+    </form>
+    
+</div>
+
+</div>
